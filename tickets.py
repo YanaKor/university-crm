@@ -4,3 +4,6 @@ class ExamTickets:
         self.ticket_number = ticket_number
         self.main_questions = main_questions
         self.additional_questions = additional_questions
+
+    def generate_ticket(self):
+        ...
