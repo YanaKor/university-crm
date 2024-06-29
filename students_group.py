@@ -1,5 +1,5 @@
 import random
-from faker import Faker
+from typing import List
 
 from students import Student
 
@@ -7,8 +7,7 @@ from students import Student
 class StudentGroup:
     MAX_STUDENTS = 10
 
-    def __init__(self, group_number):
-        self.fake = Faker()
+    def __init__(self, group_number=0):
         self.group_number = group_number
         self.students = []
 
@@ -24,5 +23,15 @@ class StudentGroup:
         if not isinstance(student, Student):
             raise TypeError("Only instances of Student class can be added to the group.")
         self.students.append(student)
-        random.shuffle(self.students)
 
+    @classmethod
+    def get_groups(cls, students: List[Student]):
+        groups = [cls(i + 1) for i in range(len(students) // cls.MAX_STUDENTS+1)]
+        current_group_index = 0
+        for student in students:
+            try:
+                groups[current_group_index].add_student(student)
+            except ValueError:
+                current_group_index += 1
+                groups[current_group_index].add_student(student)
+        return groups

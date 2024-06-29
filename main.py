@@ -1,5 +1,5 @@
 from faker import Faker
-import test_data as data
+from test_data import GenerateTestData as data
 
 from exams import Examination
 from students import Student
@@ -9,7 +9,7 @@ from tickets import Tickets
 fake = Faker('ru_RU')
 
 exam = Examination('21.07.2024', 'math', 5, data.generate_teacher(),
-                   data.generate_duration(), data.generate_student_group())
+                   data.generate_exam_duration(), data.generate_student_group())
 
 exam.print_examination_info()
 exam.quantity_of_tickets.print_tickets()
@@ -20,9 +20,9 @@ exam_tickets.generate_tickets()
 exam_tickets.print_tickets()
 
 print('_________')
-student_group = StudentGroup(group_number=data.generate_group_number())
+student_group = StudentGroup()
 
-students_list = [Student(fake.first_name(), fake.name(), fake.last_name(), i + 1) for i in range(20)]
+students_list = [Student(fake.first_name(), fake.middle_name(), fake.last_name(), i + 1) for i in range(56)]
 
 for student in students_list:
     print(student)
@@ -32,3 +32,9 @@ for student in students_list:
         print(e)
 
 print(len(student_group))
+
+print('_________')
+groups = StudentGroup.get_groups(students_list)
+
+for group in groups:
+    print(f"Группа {group.group_number}: {', '.join(str(student) for student in group.students)}")
