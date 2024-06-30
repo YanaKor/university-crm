@@ -1,7 +1,6 @@
-import random
 from typing import List
 
-from students import Student
+from persons.students import Student
 
 
 class StudentGroup:

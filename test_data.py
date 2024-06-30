@@ -2,22 +2,21 @@ import random
 
 from faker import Faker
 
-from teacher import Teacher
+from persons.teacher import Teacher
 from data import teachers_degree
 from students_group import StudentGroup
 
-fake = Faker('ru_RU')
+fake = Faker()
 
 
-class GenerateTestData:
+class TestDataGenerator:
 
     @staticmethod
     def generate_teacher():
         first_name = fake.first_name()
-        middle_name = fake.middle_name()
         last_name = fake.last_name()
         degree = random.choice(teachers_degree)
-        return Teacher(first_name, middle_name, last_name, degree)
+        return Teacher(first_name, last_name, degree)
 
     @staticmethod
     def generate_exam_duration():

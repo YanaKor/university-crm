@@ -1,29 +1,16 @@
-from ticket_generator import TicketGenerator
-
-
 class Tickets:
 
-    def __init__(self, num_tickets):
-        self.ticket_generator = TicketGenerator(num_tickets)
-        self.tickets = []
+    def __init__(self, ticket_number, ticket_name, question_list, additional_question):
+        self.ticket_number = ticket_number
+        self.ticket_name = ticket_name
+        self.questions = question_list
+        self.additional_question = additional_question
 
-    def generate_tickets(self):
-        for ticket in self.ticket_generator:
-            ticket_number, ticket_name, question_list, additional_question = ticket
-            exam_ticket = {
-                "ticket_number": ticket_number,
-                "ticket_name": ticket_name,
-                "questions": question_list,
-                "additional_question": additional_question
-            }
-            self.tickets.append(exam_ticket)
-
-    def print_tickets(self):
-        for ticket in self.tickets:
-            print(f"Билет номер: {ticket['ticket_number']}")
-            print(f"Название билета: {ticket['ticket_name']}")
-            print("Вопросы:")
-            for question in ticket['questions']:
-                print(f"- {question}")
-            print(f"Дополнительные вопросы: {ticket['additional_question']}")
-            print()
+    def __str__(self):
+        ticket_info = f"Ticket Number: {self.ticket_number}\n"
+        ticket_info += f"Ticket Name: {self.ticket_name}\n"
+        ticket_info += "Questions:\n"
+        for question in self.questions:
+            ticket_info += f"- {question}\n"
+        ticket_info += f"Additional Question: {self.additional_question}\n\n"
+        return ticket_info
